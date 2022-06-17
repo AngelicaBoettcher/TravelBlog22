@@ -1,0 +1,39 @@
+.postListBox {
+    display: flex;
+    flex-flow: row wrap;
+  justify-content: space-around;
+  width: 100%;
+  border: 1px solid blue;
+    
+}
+
+.postListItem {
+    border: 1px solid cornsilk;
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    max-height: 350px;
+    margin: 10px 20px;
+}
+
+.authorimg {
+    max-width: 50px;
+    border-radius: 50%;
+    
+}
+
+.img {
+    max-width: 250px;
+    max-height: 200px;
+}
+
+.authorItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 20px;
+    justify-content: flex-start;
+}
+
+
+    
