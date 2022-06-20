@@ -1,10 +1,7 @@
 import React from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FaUmbrellaBeach, FaConciergeBell } from "react-icons/fa";
 import { IoIosBrush, IoIosLogIn } from "react-icons/io";
-import Contact from "./contact/Contact";
-import CreatePost from "./createpost/CreatePost";
-import LoginEl from "./login/Login";
 
 function Header() {
     return (
@@ -16,11 +13,7 @@ function Header() {
                 <Link to={'newpost'}><IoIosBrush />Create</Link>
                 <Link to={'login'}><IoIosLogIn />Login</Link>
             </nav>
-            <Routes>
-                <Route path="contact" element={<Contact />} />
-                <Route path="newpost" element={<CreatePost />} />
-                <Route path="login" element={<LoginEl />} />
-            </Routes>
+            
         </div>
     );
 }

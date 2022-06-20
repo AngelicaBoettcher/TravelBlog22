@@ -26,7 +26,7 @@ footer, header, hgroup, menu, nav, section {
 
 body {
 	line-height: 1;
-  color: cornsilk;
+  
 }
 ol, ul {
 	list-style: none;
@@ -44,7 +44,7 @@ table {
 	border-spacing: 0;
 }
 body {
-  margin: auto;
+  
   
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -59,24 +59,25 @@ code {
 }
 
 .App {
-  display: flex;
+  /*display: flex;
   flex-flow: row wrap;
-  justify-content: space-around;
+  justify-content: space-around;*/
   width: 100%;
   text-align: center;
-  background-color: cornsilk;
-  padding: 30px 15px;
+  background-color: #20214f;
+  
 }
 
 .Header{
-  padding: 80px 30px;
+  
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 91%;
+  width: 100%;
   height: 100px;
-  background-color: cadetblue;
+  background-color: #00a0a0;
   color: cornsilk;
+
 } 
 
 nav {
@@ -88,11 +89,24 @@ nav {
   
 
 }
+.main {
+  display: flex;
+  justify-content: space-between;
 
+}
 .PostList, .MapComponent {
-  width: 750px;
-  
+  width: 50%;
   text-align: center;
-  background-color: cadetblue;
-  border: 1px solid white;
+  background-color: #008080;
+  
+}
+
+.createDestination{
+  width: 100%;
+  color: black;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  padding: 30px;
+
 }
