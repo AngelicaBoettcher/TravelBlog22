@@ -1,45 +1,90 @@
-import React from 'react'
-import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import React, { useState, useEffect } from 'react'
+import { GoogleMap, Marker, useJsApiLoader, InfoWindow } from '@react-google-maps/api';
+import {Link} from "react-router-dom";
+import '../map.css';
+
 
 const containerStyle = {
   width: '50%',
-  height: '400px'
+  height: '800px'
 };
 
-const center = {
-  lat: -3.745,
-  lng: -38.523
-};
 
-function MyComponent() {
+
+function MyComponent({ postListData }) {
+
+  const [activeMarker, setActiveMarker] = useState(null);
+
+  const [dataLatLon, setdataLatLon] = useState ([]);
+
+  const handleActiveMarker = (marker) => {
+    if (marker === activeMarker) {
+      return;
+    }
+    setActiveMarker(marker);
+  };
+
+  useEffect(() => {
+    //setdataLatLon(postListData);
+    console.log('heyho')
+    const temp = postListData;
+    postListData.forEach((cityInfo, index) => {
+      
+      fetch('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyCfCjOciKaHHmWD9W5bznVoakEDWvC3pts&address=' + cityInfo.location)
+        .then((response) => response.json())
+        .then((json2) => { 
+          const latLon = json2.results[0].geometry.location;
+          
+          temp[index].latLon = latLon;
+          if (temp.length === index+1) {
+            setdataLatLon(temp);
+          }
+
+            
+        })
+        
+    })
+  }, [postListData])
+
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: "AIzaSyCfCjOciKaHHmWD9W5bznVoakEDWvC3pts"
   })
 
-  const [map, setMap] = React.useState(null)
+  return (isLoaded && dataLatLon.length > 0)  ? (
+    <GoogleMap
+      mapContainerStyle={containerStyle}
+      //center={{lat : 37.4281350802915,
+      //lng : -122.0792542197085}}
+      center={dataLatLon[0].latLon}
+      zoom={7}
+      //dataLatLon[0].latLon
+    >
+      {dataLatLon.map(({ _id, title, latLon, visitingdate, authorname, authorimg }) => (
+        <Marker
+          key={_id}
+          position={latLon}
+          onClick={() => handleActiveMarker(_id)}
+        >
+          {activeMarker === _id ? (
+            <InfoWindow onCloseClick={() => setActiveMarker(null)}>
+              <div className='MapInfoWindow'>
+                <p>{title}</p>
+                <p>{visitingdate}</p>
+                <div className='mapAuthorItem'>
+                <img className='mapAuthorImg' src={authorimg} alt={authorname} />
+                <p>{authorname}</p>
+                </div>
+                <Link to={`/post/${_id}`} key={_id}>Click here for more Info!</Link>
+              </div>
+            </InfoWindow>
+          ) : null}
+        </Marker>
+      ))}
 
-  const onLoad = React.useCallback(function callback(map) {
-    const bounds = new window.google.maps.LatLngBounds(center);
-    map.fitBounds(bounds);
-    setMap(map)
-  }, [])
 
-  const onUnmount = React.useCallback(function callback(map) {
-    setMap(null)
-  }, [])
 
-  return isLoaded ? (
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={center}
-        zoom={10}
-        onLoad={onLoad}
-        onUnmount={onUnmount}
-      >
-        { /* Child components, such as markers, info windows, etc. */ }
-        <></>
-      </GoogleMap>
+    </GoogleMap>
   ) : <></>
 }
 

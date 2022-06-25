@@ -13,8 +13,15 @@ const CreatePost = ({sendData}) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-         console.log('Hello');
-         sendData({title, authorResume, visitingDate});
+         sendData({title: title, 
+            visitingdate: visitingDate, 
+            img: locationImg, 
+            authorname: authorName, 
+            authorimg: authorImg,
+            authorresume: authorResume , 
+            description: description, 
+            favoriteplace: favoritePlaceImg, 
+            imgdetailpage: detailPageImg});
     }    
 
     return (

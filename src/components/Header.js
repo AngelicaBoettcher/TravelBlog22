@@ -12,6 +12,8 @@ function Header() {
                 <Link to={'contact'}><FaConciergeBell />Contact</Link>
                 <Link to={'newpost'}><IoIosBrush />Create</Link>
                 <Link to={'login'}><IoIosLogIn />Login</Link>
+                
+                
             </nav>
             
         </div>

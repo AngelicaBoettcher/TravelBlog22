@@ -16,8 +16,8 @@
     margin: 10px 20px;
 }
 
-.authorimg {
-    max-width: 50px;
+.authorImg {
+    max-width: 50px!important;
     border-radius: 50%;
     
 }

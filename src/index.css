@@ -57,7 +57,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
+p {
+  color: antiquewhite;
+}
 .App {
   /*display: flex;
   flex-flow: row wrap;
@@ -65,6 +67,7 @@ code {
   width: 100%;
   text-align: center;
   background-color: #20214f;
+  color: white;
   
 }
 
