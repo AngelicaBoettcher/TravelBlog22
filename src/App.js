@@ -12,41 +12,23 @@ function App() {
 
   const [postMainData, setpostMainData] = useState([]);
   
-  const sendData = (data) => {
-
-    fetch('http://localhost:5000/createdestination', // 1step I am )
-      {
-        method: 'POST', // or 'PUT'
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Success:', data);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
+  function getPosts() {
+    // get all destinations from backend (mongoDB)
+    fetch('http://localhost:5000/destinations')
+    // convert string response to JSON
+    .then((response) => response.json())
+    .then((json) => {
+      // sort data by visitingdate
+      json.data.sort(function(a,b){
+        return new Date(b.visitingdate) - new Date(a.visitingdate);
       });
-
-    setpostMainData([...postMainData, data]);
-
+      setpostMainData(json.data);
+    })
   }
 
-
-
   useEffect(() => {
-    fetch('http://localhost:5000/destinations') // 1step I am calling my api, request get
-      .then((response) => response.json())
-      // .then((dataJson) => console.log(dataJson))
-
-      .then((json) => {
-        json.data.sort(function(a,b){
-          return new Date(b.visitingdate) - new Date(a.visitingdate);
-        });
-        setpostMainData(json.data);
-      })
+    // load all posts at the beginning (when page is first loaded)
+    getPosts();
   }, [])
 
 
@@ -56,12 +38,12 @@ function App() {
       <Routes>
         <Route path="/" element={<Home postMainData={postMainData} />} />
         <Route path="contact" element={<Contact />} />
-        <Route path="newpost" element={<CreatePost sendData={sendData} />} />
+        {/* when CreatePost gets callback "postCreated", 
+        trigger function "getPosts" to reload all posts from backend including the new one */}
+        <Route path="newpost" element={<CreatePost postCreated={getPosts}/>} />
         <Route path="login" element={<LoginEl />} />
         <Route path="post/:id" element={<DetailPage />} />
       </Routes>
-
-
     </div>
   );
 }

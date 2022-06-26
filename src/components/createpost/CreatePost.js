@@ -1,19 +1,29 @@
 import React, {useState} from "react";
+import { useNavigate } from "react-router-dom";
+import './createpost.css';
 
-const CreatePost = ({sendData}) => {
+const CreatePost = ({postCreated}) => {
     const [title, setTitle] = useState('');
+    const [location, setLocation] = useState('');
     const [visitingDate, setvisitingDate] = useState('');
     const [locationImg, setLocationImg] = useState('');
-    const [authorName, setauthorName] = useState('');
-    const [authorImg, setauthorImg] = useState('');
+    const [authorName, setAuthorName] = useState('');
+    const [authorImg, setAuthorImg] = useState('');
     const [authorResume, setAuthorResume] = useState('');
     const [description, setDescription] = useState('');
     const [favoritePlaceImg, setFavoritePlaceImg] = useState('');
-    const [detailPageImg, setdetailPageImg] = useState('');
+    const [detailPageImg, setDetailPageImg] = useState('');
+
+    const navigate = useNavigate();
 
     const handleSubmit = (event) => {
+        // form submit was clicked
         event.preventDefault();
-         sendData({title: title, 
+
+        // construct data 
+        const data = {
+            title: title,
+            location: location, 
             visitingdate: visitingDate, 
             img: locationImg, 
             authorname: authorName, 
@@ -21,32 +31,58 @@ const CreatePost = ({sendData}) => {
             authorresume: authorResume , 
             description: description, 
             favoriteplace: favoritePlaceImg, 
-            imgdetailpage: detailPageImg});
+            imgdetailpage: detailPageImg
+        };
+        // send data to backend (mongoDB)
+        fetch('http://localhost:5000/createdestination', {
+          method: 'POST', 
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data), // convert json to string
+        })
+        .then(response => response.json())
+        .then( () => {
+            // send was sucessfull, tell parent element to do sth
+            postCreated();
+            // go to main page
+            navigate("/");
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
     }    
 
     return (
-        <div className="createDestination">
-            <h2>Create your new Post here</h2>
-            <form onSubmit={handleSubmit}  className='form-container'>
-                <label>Your destination:
+        <div className="wrapper">
+        <div className="createDestination wrapped">
+            <h2>Create your new Post here:</h2>
+            <form onSubmit={handleSubmit}>
+            <label>Your title:
                 <input
-                    className=''
                     type='text'
-                    placeholder='Enter your destination'
+                    placeholder='Enter your title'
                     required
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                 /><br/></label>
+                <label>Your location (city and country):
+                <input
+                    type='text'
+                    placeholder='Enter your city and country'
+                    required
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
+                /><br/></label>
                 <label>Date of your journey:
                 <input
-                    className=''
                     type='date'
                     placeholder='Enter the date of your journey start'
                     required
                     value={visitingDate}
                     onChange={(e) => setvisitingDate(e.target.value)}
                 /><br/></label>
-                <label>url of an image of your destination:
+                <label>URL of an image of your destination:
                 <input
                     type="url"
                     name="url"
@@ -56,14 +92,14 @@ const CreatePost = ({sendData}) => {
                     value={locationImg}
                     onChange={(e) => setLocationImg(e.target.value)}
                 /><br/></label>
-                <label>Your name:
+                <label>Name of author:
                 <input
                     className=''
                     type='text'
-                    placeholder='Enter your name'
+                    placeholder='Enter authors name'
                     required
                     value={authorName}
-                    onChange={(e) => setauthorName(e.target.value)}
+                    onChange={(e) => setAuthorName(e.target.value)}
                 /><br/></label>
                 <label>URL of an image of yourself:
                 <input
@@ -72,18 +108,17 @@ const CreatePost = ({sendData}) => {
                     placeholder='https://example.com'
                     required
                     value={authorImg}
-                    onChange={(e) => setauthorImg(e.target.value)}
+                    onChange={(e) => setAuthorImg(e.target.value)}
                 /><br/></label>
-                <label>Tell us something about you:
+                <label>Tell us something about the author:
                 <textarea
-                    
-                    rows="5"
-                    cols= "40"
+                    rows="3"
+                    cols= "60"
                     required
                     value={authorResume}
                     onChange={(e) => setAuthorResume(e.target.value)}>
                 </textarea><br/></label>
-                <label>Tell us about your journey:
+                <label>Enter description of your journey:
                 <textarea
                     rows="5"
                     cols= "60"
@@ -91,7 +126,7 @@ const CreatePost = ({sendData}) => {
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}>
                 </textarea><br/></label>
-                <label>URL of an image of yourself:
+                <label>URL of an image of your favorite place:
                 <input
                     className=''
                     type='url'
@@ -100,17 +135,18 @@ const CreatePost = ({sendData}) => {
                     value={favoritePlaceImg}
                     onChange={(e) => setFavoritePlaceImg(e.target.value)}
                 /><br/></label>
-                <label>URL of an image of yourself:
+                <label>URL of an image to be displayed on the detail page:
                 <input
                     className=''
                     type='url'
                     placeholder='https://example.com'
                     required
                     value={detailPageImg}
-                    onChange={(e) => setdetailPageImg(e.target.value)}
+                    onChange={(e) => setDetailPageImg(e.target.value)}
                 /><br/></label>
                 <button type='submit'>Click here!</button>
             </form>
+        </div>
         </div>
     )
 }

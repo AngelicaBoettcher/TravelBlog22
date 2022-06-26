@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import { GoogleMap, Marker, useJsApiLoader, InfoWindow } from '@react-google-maps/api';
 import {Link} from "react-router-dom";
-import '../map.css';
+import './map.css';
 
 
 const containerStyle = {
   width: '50%',
-  height: '800px'
+  display: 'flex',
+  alignItems: 'stretch'
 };
 
-
-
-function MyComponent({ postListData }) {
+function MapComponent({ postListData }) {
 
   const [activeMarker, setActiveMarker] = useState(null);
-
   const [dataLatLon, setdataLatLon] = useState ([]);
 
   const handleActiveMarker = (marker) => {
@@ -25,8 +23,6 @@ function MyComponent({ postListData }) {
   };
 
   useEffect(() => {
-    //setdataLatLon(postListData);
-    console.log('heyho')
     const temp = postListData;
     postListData.forEach((cityInfo, index) => {
       
@@ -39,8 +35,6 @@ function MyComponent({ postListData }) {
           if (temp.length === index+1) {
             setdataLatLon(temp);
           }
-
-            
         })
         
     })
@@ -68,25 +62,22 @@ function MyComponent({ postListData }) {
         >
           {activeMarker === _id ? (
             <InfoWindow onCloseClick={() => setActiveMarker(null)}>
-              <div className='MapInfoWindow'>
-                <p>{title}</p>
+              <div className='mapInfoWindow'>
+                <p className='title'>{title}</p>
                 <p>{visitingdate}</p>
                 <div className='mapAuthorItem'>
-                <img className='mapAuthorImg' src={authorimg} alt={authorname} />
-                <p>{authorname}</p>
+                  <img className='mapAuthorImg' src={authorimg} alt={authorname} />
+                  <p>visited by {authorname}</p>
                 </div>
-                <Link to={`/post/${_id}`} key={_id}>Click here for more Info!</Link>
+                <Link className="btn-one" to={`/post/${_id}`} key={_id}><span>Click here for more Info!</span></Link>
               </div>
             </InfoWindow>
           ) : null}
         </Marker>
       ))}
-
-
-
     </GoogleMap>
   ) : <></>
 }
 
-export default React.memo(MyComponent);
+export default React.memo(MapComponent);
 

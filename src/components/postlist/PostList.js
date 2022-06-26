@@ -9,6 +9,7 @@ const PostList = ({postListData}) => {
     
     return(
         <div className="PostList">
+            <h2>See here the last visited places:</h2>
             <PostListItem 
             postListItems={postListData}
 

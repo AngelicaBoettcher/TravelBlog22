@@ -1,0 +1,20 @@
+.createDestination {
+    min-height: 700px;
+}
+
+.createDestination h2 {
+    font-size: 26px;
+    padding: 20px 0;
+}
+
+.createDestination label{
+    line-height: 20px;
+    display: block;
+    
+}
+
+.createDestination label input, 
+.createDestination label textarea {
+    display: block;
+    margin-top: 5px;
+}
