@@ -70,6 +70,7 @@ code {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 100px;
 }
 
 .wrapped {
@@ -82,6 +83,7 @@ code {
 .main {
   display: flex;
   justify-content: space-between;
+  padding-top: 100px;
 }
 
 .PostList, 
@@ -151,3 +153,27 @@ code {
   opacity: 0; 
   transform: scale(0.1, 1);
 }
+
+@media only screen and (max-width: 600px){
+  .wrapped {
+    width: 200px;
+    padding: 50px;
+  }
+  .main {
+    flex-direction: column;
+    justify-content: center;
+  }
+  .PostList, 
+  .MapComponent {
+    width: 100%;
+}
+  
+}
+
+/*@media only screen and (min-width: 800px){
+  .little_box {
+      width: 25%;
+      .header h1: 15px;
+
+  }
+}*/

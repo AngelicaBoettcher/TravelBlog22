@@ -41,3 +41,9 @@
 
 
 
+@media only screen and (max-width: 600px){
+    .main > div:not(.PostList) {
+        width: 100% !important;
+        height: 400px;
+    }
+}

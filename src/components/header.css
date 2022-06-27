@@ -5,16 +5,19 @@
     width: 100%;
     height: 100px;
     background-color: #00a0a0;
-    
-} 
+    position: fixed;
+    z-index: 9999;  
+}
 
-nav {
+.header nav {
     display: flex;
     justify-content: space-around;
     width: 300px;
     margin:0;
     color: cornsilk;
     padding-right: 30px;
+
+    
 }
 
 .header h1 {
@@ -31,3 +34,19 @@ nav {
 .header nav a {
     padding-right: 20px;
 }
+
+@media only screen and (max-width: 600px){
+    .header {
+        flex: wrap;
+        
+    }
+    .header h1 {
+        font-size: 20px;
+    } 
+    .header nav a {
+        font-size: 15px;
+        padding-right: 10px;
+    }
+    
+    
+  }

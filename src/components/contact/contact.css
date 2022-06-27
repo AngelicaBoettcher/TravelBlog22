@@ -27,5 +27,7 @@
 
 .contactPage .madeBy p a {
     text-decoration: underline;
-    color: #fff;
+    color: #fff; 
+    word-break: break-word; 
 }
+

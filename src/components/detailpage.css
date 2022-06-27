@@ -71,3 +71,20 @@
   float:right;
   padding: 0 0 25px 25px;
 }
+
+@media only screen and (max-width: 600px) {
+  .detailMain {
+    width: 65%;
+  }
+  .detailMain p {
+    width: 100%;
+  }
+    
+  .detailMain img {
+    width: 250px;
+  }
+  .detailAuthorInfo {
+    width: 200px;
+    
+  }
+}

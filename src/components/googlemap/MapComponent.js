@@ -3,6 +3,7 @@ import { GoogleMap, Marker, useJsApiLoader, InfoWindow } from '@react-google-map
 import {Link} from "react-router-dom";
 import './map.css';
 
+const googleApiKey = '';
 
 const containerStyle = {
   width: '50%',
@@ -26,10 +27,10 @@ function MapComponent({ postListData }) {
     const temp = postListData;
     postListData.forEach((cityInfo, index) => {
       
-      fetch('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyCfCjOciKaHHmWD9W5bznVoakEDWvC3pts&address=' + cityInfo.location)
+      fetch('https://maps.googleapis.com/maps/api/geocode/json?key=' + googleApiKey + '&address=' + cityInfo.location)
         .then((response) => response.json())
-        .then((json2) => { 
-          const latLon = json2.results[0].geometry.location;
+        .then((json) => { 
+          const latLon = json.results[0].geometry.location;
           
           temp[index].latLon = latLon;
           if (temp.length === index+1) {
@@ -42,17 +43,14 @@ function MapComponent({ postListData }) {
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: "AIzaSyCfCjOciKaHHmWD9W5bznVoakEDWvC3pts"
+    googleMapsApiKey: googleApiKey
   })
 
   return (isLoaded && dataLatLon.length > 0)  ? (
     <GoogleMap
       mapContainerStyle={containerStyle}
-      //center={{lat : 37.4281350802915,
-      //lng : -122.0792542197085}}
       center={dataLatLon[0].latLon}
       zoom={7}
-      //dataLatLon[0].latLon
     >
       {dataLatLon.map(({ _id, title, latLon, visitingdate, authorname, authorimg }) => (
         <Marker

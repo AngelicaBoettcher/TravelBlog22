@@ -18,3 +18,25 @@
     display: block;
     margin-top: 5px;
 }
+
+.createDestination .btn-one {
+    margin-top: 20px;
+    background-color: transparent;
+    border-width: 0;
+    font-family: inherit;
+    font-size: inherit;
+    font-style: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    padding: 0;
+}
+
+@media only screen and (max-width: 600px){
+    .createDestination label input, 
+    .createDestination label textarea {
+    width:200px;
+}
+    .createDestination .btn-one {
+    width: 200px;
+}
+}

@@ -144,7 +144,7 @@ const CreatePost = ({postCreated}) => {
                     value={detailPageImg}
                     onChange={(e) => setDetailPageImg(e.target.value)}
                 /><br/></label>
-                <button type='submit'>Click here!</button>
+                <button className="btn-one" type='submit'><span>Click here to submit!</span></button>
             </form>
         </div>
         </div>
